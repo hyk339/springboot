@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+
+<!-- xlms:th는 정식문서는 아니지만 자동완성해줄수도 있으니까 넣자 -->
+<html mlns:th="http://www.thymeleaf.org">
+<!-- this는 이파일이 가지고있는 fragment는 content이다.를 뜻한다. 이 내용이 전달된다. -->
+<th:block th:replace="~{common/layout::setContent(~{this::content})}">
+<th:block th:fragment="content">
+	
+<div class="card m-2">
+	<div class="card-header">
+		JavaScript 코드 삽입
+	</div>
+	<div class="card-body">
+		<script th:inline="javascript">
+			let name = [[${name}]];
+			console.log("name: ",name);
+			
+			/* thymeleaf 자동적으로 java배열을 javascript배열로 바꿔준다. */
+			let hobby = [[${hobby}]];
+			console.log("hobby: ",hobby);
+			
+			/* 원래 java 객체인데 javascript객체로 바꿔서 넣어준다. */
+			let board = [[${board}]];
+			console.log("board: ",board);
+			
+			let jsonBoard = JSON.parse([[${jsonBoard}]]);
+			console.log("jsonBoard",jsonBoard);
+			</script>
+			
+			<script th:inline="javascript">
+				//ServerSide에서 데이터 바인딩
+				name = [[${name}]];
+				//ClientSide에서 데이터 바인딩
+				let message = `Your's Name is ${name}`;
+				console.log("message: ",message);
+						
+				/* 
+					${}는 javascript의 데이터 바인딩 기호다.
+					server측이 아니라 browser에서 작동된다.
+					jsp에서는 서버측에서 해당기호를 해석하고 대체해서 안넘어갔다.
+				*/
+				
+				/* 대괄호가 없기때문에 server측에서 해석하지 않고 그대로 브라우져로 보낸다.
+					브라우저에서 백틱을 해석한다.대괄호가 있는 것은 서버측에서 대체한다.
+					그런데 대괄호가 없는 것은 javascript로 그대로 보내준다.
+				*/
+				
+				/* 결론 : Thymeleaf에서 백틱을 사용해도 좋다. */
+				
+				// Backtick ClientSide에서 실행할 때 Backtick의 바인딩 기호: ${}
+				//let data ="타임리프";
+				//let message = `클라이언트 데이터 바인딩 : ${data}`;
+				//console.log("message: ",message);
+			</script>
+	</div>
+</div>
+	
+	
+	
+</th:block>
+</th:block>
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+
+<!-- xlms:th는 정식문서는 아니지만 자동완성해줄수도 있으니까 넣자 -->
+<html mlns:th="http://www.thymeleaf.org">
+<!-- this는 이파일이 가지고있는 fragment는 content이다.를 뜻한다. 이 내용이 전달된다. -->
+<th:block th:replace="~{common/layout::setContent(~{this::content})}">
+<th:block th:fragment="content">
+	
+<div class="card m-2">
+	<div class="card-header">
+		Varaible Expressions
+	</div>
+	<div class="card-body">
+		<div>Login ID : [[${session.sessionMid}]]</div>
+		<div>
+			<a th:if="${session.sessionMid == null}" href="variableExpressions" class="btn btn-info btn-sm">로그인</a>
+			<a th:if="${session.sessionMid != null}" href="variableExpressions" class="btn btn-info btn-sm">로그아웃</a>
+		</div>
+		<div>
+			<!-- null일 경우 null로 출력 -->
+			<div th:text="${'Current user:' + session.sessionMid}"></div>
+			<div th:text="'Current user:' + ${session.sessionMid}"></div>
+			<div th:text="|Current user: ${session.sessionMid}|"></div>
+			
+			
+			<!-- null일 경우 빈공백으로 출력 -->
+			<div th:text="'Current user: '+ ((${session.sessionMid})?${session.sessionMid}:'')"></div>
+			<div>Current User: [[${session.sessionMid}]]</div>
+		</div>
+	</div>
+</div>
+	
+	
+	
+</th:block>
+</th:block>
+</html>

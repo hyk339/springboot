@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+
+<!-- xlms:th는 정식문서는 아니지만 자동완성해줄수도 있으니까 넣자 -->
+<html xmlns:th="http://www.thymeleaf.org">
+<!-- this는 이파일이 가지고있는 fragment는 content이다.를 뜻한다. 이 내용이 전달된다. -->
+<th:block th:replace="~{common/layout::setContent(~{this::content})}">
+<th:block th:fragment="content">
+	
+<div class="card m-2">
+	<div class="card-header">
+		Text 삽입
+	</div>
+	<div class="card-body">
+		<div>
+			<h6 class="text-info">속성 삽입: th:text, th:utext</h6>
+			<hr/>
+			<div>bno: <span th:text="${board.bno}"></span></div>
+			<div>btitle: <span th:text="${board.btitle}"></span></div>
+			<div>bcontent: <span th:text="${board.bcontent}"></span></div>
+			<div>bcontent(unescaped): <span th:utext="${board.bcontent}"></span></div>
+			<div>mid: <span th:text="${board.mid}"></span></div>
+			<div>bdate: <span th:text="${#dates.format(board.bdate, 'yyyy.MM.dd')}"></span></div>
+			<!-- 날짜는 우리가 원하는 포멧으로 바꾼수있다. -->
+			<!-- dates라는 utility객체를 사용한 것인데 나중에 설명하겠다. -->
+		</div>
+		<hr/>
+		<div>
+			<h6 class="text-info">인라인 삽입</h6>
+			<hr/>
+			<div>bno: <span data-th-text="${board.bno}"></span></div>
+			<div>btitle: <span data-th-text="${board.btitle}"></span></div>
+			<div>bcontent: [[${board.bcontent}]]</div>
+			<div>bcontent(unescaped): [(${board.bcontent})]</div>
+			<div>mid: [(${board.mid})]</div>
+			<div>mid: [[${board.mid}]]</div>
+			<div>bdate: [(${#dates.format(board.bdate, 'yyyy.MM.dd')})]</div>
+		</div>
+	</div>
+	
+</div>
+	
+	
+	
+</th:block>
+</th:block>
+</html>
