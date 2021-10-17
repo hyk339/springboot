@@ -12,7 +12,6 @@ import lombok.extern.log4j.Log4j2;
 @Log
 public class HomeController {
 	
-	
 	@RequestMapping("/")
 	public String home() {
 		log.info("실행");
