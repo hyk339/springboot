@@ -3,6 +3,8 @@ package com.mycompany.webapp.controller;
 
 import java.util.Date;
 
+import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.json.JSONObject;
@@ -110,11 +112,31 @@ public class ThymeleafController {
 		log.info("typeId: "+ typeId);
 		log.info("productId: "+ productId);
 		log.info("pageNo: "+ pageNo);
-		model.addAttribute("typeId", "t1");
+		model.addAttribute("typeId", "t2");
 	    model.addAttribute("productId", "p1");
 	    model.addAttribute("pageNo", "1");
 	    model.addAttribute("url1", "/thymeleaf/linkUrlExpressions/t1/detail");
 	    model.addAttribute("url2", "/t1/detail");
 		return "thymeleaf/linkUrlExpressions";
+	}
+	
+	@RequestMapping("/builtinObject")
+	public String builtinObject(HttpServletRequest request, HttpSession session, Model model) {
+	   log.info("실행");
+	   
+	   //request 범위에 저장
+	   request.setAttribute("title", "spring boot");
+	   model.addAttribute("today", new Date());
+	   model.addAttribute("array", new String[] {"spring", "boot", "thymeleaf"});
+
+	   //session 범위에 저장(같은 브라우저에서 공유)
+	   session.setAttribute("sessionMid", "thymeleaf");
+	   
+	   //application 범위에 저장(모든 부라우저에서 공유)
+	   ServletContext application = session.getServletContext();
+	   application.setAttribute("visitorCount", 100);
+	   
+	   
+	   return "thymeleaf/builtinObject";
 	}
 }

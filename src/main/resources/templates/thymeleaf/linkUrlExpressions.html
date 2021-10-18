@@ -19,10 +19,16 @@
 	
 		<hr/>
 		
-		<!-- linkUrlExpressions/t1/detail?productId=xxx&pageNo=yyy -->
+		<!-- /thymeleaf/linkUrlExpressions/t1/detail?productId=xxx&pageNo=yyy -->
 		<!-- xxx와 yyy값을 controller에서 받아와서 url을 만들고 싶다. -->
 		<a th:href="@{/thymeleaf/linkUrlExpressions/t1/detail(productId=${productId},pageNo=${pageNo})}" class="btn btn-info btn-sm">URL Parameters</a>
-				
+		
+		<!-- t1까지도 변수처리해보자 -->
+		<a th:href="@{/thymeleaf/linkUrlExpressions/{typeId}/detail(typeId=${typeId}, productId=${productId},pageNo=${pageNo})}" class="btn btn-info btn-sm">Path Variables</a>
+		
+		<!-- 아래처럼 만들수도 있지만 좀처럼 아래처럼 만드는 경우는 적다. -->
+		<a th:href="@{${url1}(productId=${productId},pageNo=${pageNo})}" class="btn btn-info btn-sm">URL insert1</a>
+		<a th:href="@{'/thymeleaf/linkUrlExpressions' + ${url2}(productId=${productId},pageNo=${pageNo})}" class="btn btn-info btn-sm">URL insert2</a>
 	</div>
 </div>
 	
