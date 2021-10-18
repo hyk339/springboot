@@ -1,5 +1,6 @@
 package com.mycompany.webapp.controller;
 
+
 import java.util.Date;
 
 import javax.servlet.http.HttpSession;
@@ -7,14 +8,16 @@ import javax.servlet.http.HttpSession;
 import org.json.JSONObject;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.mycompany.webapp.dto.Board;
 
-import lombok.extern.java.Log;
+import lombok.extern.slf4j.Slf4j;
 
 @Controller
-@Log
+@Slf4j
 @RequestMapping("/thymeleaf")
 public class ThymeleafController {
 	@RequestMapping("/content")
@@ -89,5 +92,29 @@ public class ThymeleafController {
 	public String messageExpressions() {
 		log.info("실행");
 		return "thymeleaf/messageExpressions";
+	}
+	
+	@RequestMapping({
+		"/linkUrlExpressions/{typeId}/detail",
+		"/linkUrlExpressions/{typeId}/update"
+					})
+	public String linkUrlExpressions(
+			@PathVariable String typeId,
+			@RequestParam(defaultValue="") String productId, 
+			@RequestParam(defaultValue="1") int pageNo,
+			Model model) {
+		//pageNo가 null이 들어오면 에러가 난다. 그래서 이런경우를 대비해서
+		//default값을 주는 것이 좋다. //문자열로 주어야한다.
+		//productid도 값이 들어오지 않으면 null값이 들어간다. 이 값도 null대신 기본값을 넣어주기 위해서 ""를 줄수있다.
+		log.info("실행");
+		log.info("typeId: "+ typeId);
+		log.info("productId: "+ productId);
+		log.info("pageNo: "+ pageNo);
+		model.addAttribute("typeId", "t1");
+	    model.addAttribute("productId", "p1");
+	    model.addAttribute("pageNo", "1");
+	    model.addAttribute("url1", "/thymeleaf/linkUrlExpressions/t1/detail");
+	    model.addAttribute("url2", "/t1/detail");
+		return "thymeleaf/linkUrlExpressions";
 	}
 }

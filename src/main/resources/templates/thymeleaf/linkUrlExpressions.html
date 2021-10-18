@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+<th:block th:replace="~{common/layout::setContent(~{this::content})}">
+<th:block th:fragment="content">
+	
+<div class="card m-2">
+	<div class="card-header">
+		Link URL Expressions
+	</div>
+	<div class="card-body">
+		<!-- 아래처럼 외부의 절대경로를 넣을 수 있다. -->
+		<a th:href="@{https://www.thymeleaf.org/doc/tutorials/3.0/usingthymeleaf.html}" 
+			class="btn btn-info btn-sm">Absolute</a>
+			
+		<a href="update" class="btn btn-info btn-sm">Page-relative</a>
+		<a th:href="@{/thymeleaf/update}" class="btn btn-info btn-sm">Context-relative(excluded contextpath)</a>
+		<a th:href="@{~/thymeleaf/update}" class="btn btn-info btn-sm">Context-relative(excluded contextpath)</a>
+	
+		<hr/>
+		
+		<!-- linkUrlExpressions/t1/detail?productId=xxx&pageNo=yyy -->
+		<!-- xxx와 yyy값을 controller에서 받아와서 url을 만들고 싶다. -->
+		<a th:href="@{/thymeleaf/linkUrlExpressions/t1/detail(productId=${productId},pageNo=${pageNo})}" class="btn btn-info btn-sm">URL Parameters</a>
+				
+	</div>
+</div>
+	
+	
+	
+</th:block>
+</th:block>
+</html>
