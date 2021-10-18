@@ -8,7 +8,7 @@
 		게시물 수정
 	</div>
 	<div class="card-body">
-		<form id="boardUpdateForm" method="post" action="boardUpdate">
+		<form id="boardUpdateForm" method="post" action="boardUpdate" enctype="multipart/form-data">
 			<input type="hidden" name="bno" th:value="${board.bno}"/>
 			<div class="input-group">
 				<div class="input-group-prepend"><span class="input-group-text">btitle</span></div>

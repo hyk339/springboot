@@ -132,5 +132,29 @@ public class DaoController {
 	   return "dao/boardUpdateForm";
 	}
 	
+	@PostMapping("/boardUpdate")
+	public String boardUpdate(Board board) throws Exception {
+	   log.info("실행");
+	   
+	   if(board.getBattach() != null && !board.getBattach().isEmpty()) {
+	      MultipartFile mf = board.getBattach();
+	      board.setBattachoname(mf.getOriginalFilename());
+	      board.setBattachsname(new Date().getTime() + "-" + mf.getOriginalFilename());
+	      board.setBattachtype(mf.getContentType());
+	      File file = new File("C:/hyundai_ite/upload_files/" + board.getBattachsname());
+	      mf.transferTo(file);
+	   }
+	   
+	   boardService.updateBoard(board);
+	   return "redirect:/dao/boardDetail?bno=" + board.getBno();
+	}
+	
+	
+	@GetMapping("/boardDelete")
+	public String boardDelete(int bno) {
+	   log.info("실행");
+	   boardService.removeBoard(bno);
+	   return "redirect:/dao/boardList";
+	}   
 	
 }
